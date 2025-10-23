@@ -7,11 +7,48 @@
    * بيانات المنتجات (ثابتة الآن — لاحقًا من API)
    *********************/
   const products = [
-    { id: 1, name: "عسل جبل طبيعي 1كغ", price: 220, img: "https://plus.unsplash.com/premium_photo-1663957861996-8093b48a22e6?auto=format&fit=crop&q=60&w=800", desc: "عسل نقي من جبال طبيعية، طعم غني ولون ذهبي جميل." },
-    { id: 2, name: "خل تفاح عضوي 500مل", price: 40, img: "https://images.unsplash.com/photo-1610276329975-fbaa313c9d0e?auto=format&fit=crop&q=60&w=800", desc: "خل تفاح عضوي ممتاز للسلطات والصحة اليومية." },
-    { id: 3, name: "كيكة الفاكهة الصغيرة", price: 180, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=60&w=800", desc: "كيك فاكهة طازج بمكونات طبيعية ونكهة لذيذة." },
-    { id: 4, name: "عسل زهري 500غ", price: 130, img: "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&q=60&w=800", desc: "عسل خفيف ذو رائحة زهرية لطيفة." },
-    { id: 5, name: "خل العنب 750مل", price: 55, img: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&q=60&w=800", desc: "خل عنب بنكهة غنية ومناسبة للطبخ." }
+    {
+      id: 1,
+      name: "عسل جبل طبيعي 1كغ",
+      price: 20,
+      img: "https://plus.unsplash.com/premium_photo-1663957861996-8093b48a22e6?auto=format&fit=crop&q=60&w=800",
+      desc: "عسل نقي من جبال طبيعية، طعم غني ولون ذهبي جميل.",
+    },
+    {
+      id: 4,
+      name: "عسل أبيض 500غ",
+      price: 7.5,
+      img: "https://plus.unsplash.com/premium_photo-1666983939177-f892819790ff?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2hpdGUlMjBob25leXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+      desc: "عسل خفيف ذو رائحة زهرية لطيفة.",
+    },
+    {
+      id: 2,
+      name: "خل تفاح عضوي 500مل",
+      price: 10,
+      img: "https://images.unsplash.com/photo-1610276329975-fbaa313c9d0e?auto=format&fit=crop&q=60&w=800",
+      desc: "خل تفاح عضوي ممتاز للسلطات والصحة اليومية.",
+    },
+    {
+      id: 5,
+      name: "خل العنب 750مل",
+      price: 7,
+      img: "https://media.istockphoto.com/id/1272595842/photo/glass-bottle-of-organic-black-grape-balsamic-vinegar-made-from-fermented-fresh-grapes-healthy.webp?a=1&b=1&s=612x612&w=0&k=20&c=E2Rmp4SuSO0NCnhvLYdWy4sSzDyS4rjywiVdDUf1Ekw=",
+      desc: "خل عنب بنكهة غنية ومناسبة للطبخ.",
+    },
+    {
+      id: 3,
+      name: "خل التمر 700مل",
+      price: 5,
+      img: "https://plus.unsplash.com/premium_photo-1670426501140-b21450719ef1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8RGF0ZSUyMHZpbmVnYXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+      desc: "كيك فاكهة طازج بمكونات طبيعية ونكهة لذيذة.",
+    },
+    {
+      id: 3,
+      name: "كيكة الفاكهة الصغيرة",
+      price: 5,
+      img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=60&w=800",
+      desc: "كيك فاكهة طازج بمكونات طبيعية ونكهة لذيذة.",
+    },
   ];
 
   /*********************
@@ -89,20 +126,23 @@
   function renderProducts(filter = "") {
     productsGrid.innerHTML = "";
     const search = filter.trim().toLowerCase();
-    const filtered = products.filter(p => p.name.toLowerCase().includes(search));
+    const filtered = products.filter((p) =>
+      p.name.toLowerCase().includes(search)
+    );
 
-    filtered.forEach(p => {
+    filtered.forEach((p) => {
       const card = document.createElement("article");
-      card.className = "group rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition flex flex-col";
+      card.className =
+        "group rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition flex flex-col";
       card.innerHTML = `
         <img src="${p.img}" alt="${p.name}" class="h-44 sm:h-48 w-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer" data-id="${p.id}" />
         <div class="p-4 flex-1 flex flex-col justify-between">
           <div>
             <h3 class="text-lg font-semibold cursor-pointer" data-id="${p.id}">${p.name}</h3>
-            <p class="text-sm text-gray-500 mt-2">${p.price} ر.س</p>
+            <p class="text-sm text-gray-500 mt-2">${p.price}$</p>
           </div>
           <div class="mt-4 flex items-center justify-between gap-3">
-            <div class="text-sm text-gray-600">${p.price} ر.س</div>
+            <div class="text-sm text-gray-600">${p.price}$</div>
             <button data-id="${p.id}" class="addBtn w-36 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-white font-medium rounded-full shadow transition">➕ أضف إلى السلة</button>
           </div>
         </div>
@@ -111,15 +151,15 @@
     });
 
     // attach listeners
-    document.querySelectorAll(".addBtn").forEach(btn => {
-      btn.addEventListener("click", e => {
+    document.querySelectorAll(".addBtn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
         const id = +e.currentTarget.dataset.id;
         addToCart(id);
       });
     });
 
     // open details when clicking image or title
-    productsGrid.querySelectorAll("[data-id]").forEach(el => {
+    productsGrid.querySelectorAll("[data-id]").forEach((el) => {
       el.addEventListener("click", (e) => {
         const id = +e.currentTarget.dataset.id;
         // if clicked on add button, avoid double opening (handled above)
@@ -133,9 +173,9 @@
    * Cart functions
    *********************/
   function addToCart(productId, qty = 1) {
-    const product = products.find(p => p.id === productId);
+    const product = products.find((p) => p.id === productId);
     if (!product) return;
-    const existing = cart.find(i => i.id === productId);
+    const existing = cart.find((i) => i.id === productId);
     if (existing) existing.qty += qty;
     else cart.push({ id: productId, qty });
     saveCart();
@@ -144,14 +184,14 @@
   }
 
   function removeFromCart(productId) {
-    cart = cart.filter(i => i.id !== productId);
+    cart = cart.filter((i) => i.id !== productId);
     saveCart();
     renderCart();
     showToast(`تمت إزالة المنتج من السلة`);
   }
 
   function changeQty(productId, delta) {
-    const item = cart.find(i => i.id === productId);
+    const item = cart.find((i) => i.id === productId);
     if (!item) return;
     item.qty += delta;
     if (item.qty <= 0) {
@@ -171,12 +211,12 @@
   function cartSummary() {
     const totalItems = cart.reduce((s, i) => s + i.qty, 0);
     const totalPrice = cart.reduce((s, i) => {
-      const p = products.find(x => x.id === i.id);
+      const p = products.find((x) => x.id === i.id);
       return s + (p ? p.price * i.qty : 0);
     }, 0);
 
     cartCountSummary.textContent = totalItems;
-    cartTotal.textContent = totalPrice.toLocaleString() + " ر.س";
+    cartTotal.textContent = totalPrice.toLocaleString() + "$";
 
     if (totalItems > 0) {
       cartBadgeHeader.classList.remove("hidden");
@@ -195,40 +235,56 @@
       emptyCart.classList.add("hidden");
     }
 
-    cart.forEach(item => {
-      const p = products.find(x => x.id === item.id);
+    cart.forEach((item) => {
+      const p = products.find((x) => x.id === item.id);
       if (!p) return;
 
       const row = document.createElement("div");
       row.className = "flex items-center gap-3 p-3 border rounded-md";
       row.innerHTML = `
-        <img src="${p.img}" class="w-16 h-16 object-cover rounded-md" alt="${p.name}" />
+        <img src="${p.img}" class="w-16 h-16 object-cover rounded-md" alt="${
+        p.name
+      }" />
         <div class="flex-1 min-w-0">
           <div class="flex items-center justify-between">
             <div class="font-medium truncate">${p.name}</div>
-            <div class="text-sm text-gray-600">${(p.price * item.qty).toLocaleString()} ر.س</div>
+            <div class="text-sm text-gray-600">${(
+              p.price * item.qty
+            ).toLocaleString()}$</div>
           </div>
-          <div class="text-sm text-gray-500">${p.price.toLocaleString()} ر.س للواحد</div>
+          <div class="text-sm text-gray-500">${p.price.toLocaleString()}$ للواحد</div>
         </div>
         <div class="flex items-center gap-2">
-          <button data-id="${item.id}" class="decBtn px-2 py-1 rounded-md border">−</button>
+          <button data-id="${
+            item.id
+          }" class="decBtn px-2 py-1 rounded-md border">−</button>
           <div class="px-3 py-1 border rounded-md">${item.qty}</div>
-          <button data-id="${item.id}" class="incBtn px-2 py-1 rounded-md border">+</button>
-          <button data-id="${item.id}" class="removeBtn ml-2 text-sm text-rose-600">حذف</button>
+          <button data-id="${
+            item.id
+          }" class="incBtn px-2 py-1 rounded-md border">+</button>
+          <button data-id="${
+            item.id
+          }" class="removeBtn ml-2 text-sm text-rose-600">حذف</button>
         </div>
       `;
       cartList.appendChild(row);
     });
 
     // connect handlers
-    document.querySelectorAll(".incBtn").forEach(b => {
-      b.addEventListener("click", (e) => changeQty(+e.currentTarget.dataset.id, +1));
+    document.querySelectorAll(".incBtn").forEach((b) => {
+      b.addEventListener("click", (e) =>
+        changeQty(+e.currentTarget.dataset.id, +1)
+      );
     });
-    document.querySelectorAll(".decBtn").forEach(b => {
-      b.addEventListener("click", (e) => changeQty(+e.currentTarget.dataset.id, -1));
+    document.querySelectorAll(".decBtn").forEach((b) => {
+      b.addEventListener("click", (e) =>
+        changeQty(+e.currentTarget.dataset.id, -1)
+      );
     });
-    document.querySelectorAll(".removeBtn").forEach(b => {
-      b.addEventListener("click", (e) => removeFromCart(+e.currentTarget.dataset.id));
+    document.querySelectorAll(".removeBtn").forEach((b) => {
+      b.addEventListener("click", (e) =>
+        removeFromCart(+e.currentTarget.dataset.id)
+      );
     });
 
     cartSummary();
@@ -241,18 +297,21 @@
   let currentDetailQty = 1;
 
   function openDetails(id) {
-    const p = products.find(x => x.id === id);
+    const p = products.find((x) => x.id === id);
     if (!p) return;
     currentDetailId = id;
     currentDetailQty = 1;
     detailImg.src = p.img;
     detailName.textContent = p.name;
-    detailPrice.textContent = p.price.toLocaleString() + " ر.س";
+    detailPrice.textContent = p.price.toLocaleString() + "$";
     detailDesc.textContent = p.desc || "وصف مختصر للمنتج.";
     detailQty.textContent = currentDetailQty;
     showSection("productDetails");
     // scroll into view nicely
-    productDetailsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    productDetailsSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }
 
   detailInc.addEventListener("click", () => {
@@ -293,7 +352,7 @@
    *********************/
   function showSection(id) {
     // hide all main sections: store, productDetails, cart, checkout, profile
-    ["store","productDetails","cart","checkout","profile"].forEach(s => {
+    ["store", "productDetails", "cart", "checkout", "profile"].forEach((s) => {
       const el = document.getElementById(s);
       if (!el) return;
       if (s === id) {
@@ -305,14 +364,14 @@
     });
 
     // update header tab active state
-    document.querySelectorAll(".tab-btn").forEach(btn => {
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
       const tab = btn.dataset.tab;
       if (tab === id) {
-        btn.classList.add("bg-white","shadow");
-        btn.setAttribute("aria-pressed","true");
+        btn.classList.add("bg-white", "shadow");
+        btn.setAttribute("aria-pressed", "true");
       } else {
-        btn.classList.remove("bg-white","shadow");
-        btn.setAttribute("aria-pressed","false");
+        btn.classList.remove("bg-white", "shadow");
+        btn.setAttribute("aria-pressed", "false");
       }
     });
 
@@ -342,7 +401,9 @@
   });
 
   // checkout button navigates to checkout tab
-  document.getElementById("checkoutBtn").addEventListener("click", () => showSection("checkout"));
+  document
+    .getElementById("checkoutBtn")
+    .addEventListener("click", () => showSection("checkout"));
 
   // profile save/cancel
   saveProfileBtn.addEventListener("click", () => {
@@ -400,5 +461,4 @@
 
   // start
   init();
-
 })();
