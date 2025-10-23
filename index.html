@@ -1,175 +1,141 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HoneyVinegarCake Store</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HoneyVinegarCake — متجر</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body
-    class="bg-gradient-to-b from-rose-50 to-amber-50 text-gray-800 min-h-screen"
-  >
-    <!-- Splash Screen -->
-    <div
-      id="splash"
-      class="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-amber-100 via-rose-100 to-white z-50 transition-opacity duration-1000"
-    >
-      <div class="relative animate-bounce">
-        <div
-          class="absolute -inset-3 rounded-full border-[6px] border-amber-400/40 animate-spin"
-        ></div>
-        <div
-          class="w-32 h-32 bg-white shadow-2xl rounded-full flex flex-col items-center justify-center text-4xl font-extrabold text-rose-600 tracking-wider"
-        >
-          <span class="text-amber-500">🍯</span>
-          <span>HVC</span>
+  <body class="min-h-screen bg-gradient-to-b from-rose-50 to-amber-50 text-gray-800 antialiased">
+
+    <!-- Splash -->
+    <div id="splash" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-amber-100 via-rose-100 to-white transition-opacity duration-700">
+      <div class="relative">
+        <div class="absolute -inset-2 rounded-full border-4 border-amber-300/40 animate-spin"></div>
+        <div class="w-28 h-28 rounded-full bg-white shadow-2xl flex items-center justify-center text-3xl font-extrabold text-rose-600">
+          <span class="text-amber-500">🍯</span> HVC
         </div>
       </div>
-      <div class="mt-8 flex flex-col items-center space-y-2">
-        <p class="text-gray-700 text-lg font-semibold">
-          مرحباً بك في متجر الرضوان
-        </p>
-        <div
-          class="w-40 h-1 bg-gradient-to-r from-amber-400 via-rose-400 to-amber-400 rounded-full animate-pulse"
-        ></div>
-        <p class="text-gray-500 text-sm mt-2">جارٍ تحميل المتجر...</p>
+      <div class="mt-6 text-center">
+        <p class="text-lg font-semibold text-gray-700">مرحباً بك في متجر الرضوان</p>
+        <p class="text-sm text-gray-500 mt-2">جارٍ تحميل المتجر...</p>
       </div>
     </div>
 
     <!-- Header -->
-    <header
-      id="header"
-      class="sticky top-0 bg-white/70 backdrop-blur z-40 hidden border-b border-rose-100"
-    >
-      <div
-        class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between"
-      >
-        <a href="#" class="flex items-center gap-3">
-          <div
-            class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-rose-500 flex items-center justify-center text-white font-bold"
-          >
-            H
-          </div>
-          <div class="font-semibold text-lg">example</div>
+    <header id="header" class="sticky top-0 z-40 hidden bg-white/80 backdrop-blur border-b border-rose-100">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        <a class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-rose-500 flex items-center justify-center text-white font-bold">H</div>
+          <div class="hidden sm:block font-semibold text-lg">HoneyVinegarCake</div>
         </a>
 
-        <!-- Tabs (Modern Style) -->
-        <nav class="flex bg-rose-50 rounded-full p-1 shadow-inner">
-          <button
-            onclick="showTab('store')"
-            class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition"
-          >
-            🛒 المتجر
+        <!-- Tabs (modern & responsive) -->
+        <nav class="flex items-center gap-2 bg-rose-50 rounded-full p-1 shadow-inner">
+          <button data-tab="store" class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition" aria-pressed="false">🛒 المتجر</button>
+
+          <button data-tab="cart" class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition relative" aria-pressed="false">
+            🧺 السلة
+            <span id="cartBadgeHeader" class="absolute -left-2 -top-2 inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium leading-none text-white bg-rose-500 rounded-full hidden">0</span>
           </button>
-          <button
-            onclick="showTab('checkout')"
-            class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition"
-          >
-            💳 الدفع
-          </button>
-          <button
-            onclick="showTab('profile')"
-            class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition"
-          >
-            👤 البروفايل
-          </button>
+
+          <button data-tab="checkout" class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition" aria-pressed="false">💳 الدفع</button>
+
+          <button data-tab="profile" class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition" aria-pressed="false">👤 البروفايل</button>
         </nav>
+
+        <!-- أيقونة المستخدم (صغيرة فقط) -->
+        <div class="flex items-center gap-3">
+          <div title="الحساب" class="w-10 h-10 rounded-full bg-amber-200 flex items-center justify-center text-sm font-semibold">U</div>
+        </div>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main id="content" class="max-w-6xl mx-auto px-4 py-8 hidden">
-      <!-- 🛒 Store Section -->
-      <section id="store" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div
-          class="group cursor-pointer rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition flex flex-col"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&q=60&w=600"
-            class="h-44 md:h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div class="p-4 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="text-lg font-semibold">العسل</h3>
-              <p class="text-sm text-gray-500 mt-2">
-                منتجات طبيعية وبجودة عالية
-              </p>
-            </div>
-            <button
-              class="mt-4 px-4 py-2 bg-amber-400 hover:bg-amber-500 text-white font-medium rounded-full shadow transition"
-            >
-              ➕ أضف إلى السلة
-            </button>
+    <!-- Main container -->
+    <main id="app" class="max-w-6xl mx-auto px-4 py-8 hidden">
+
+      <!-- Store tab -->
+      <section id="store" class="space-y-6 animate-fade-in">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl font-bold">المتجر</h1>
+            <p class="text-sm text-gray-500 mt-1">منتجات طبيعية مختارة بعناية</p>
+          </div>
+          <!-- بحث + عرض/فرز بسيط -->
+          <div class="flex items-center gap-2">
+            <input id="searchInput" type="search" placeholder="ابحث عن منتج..." class="px-3 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-200" />
           </div>
         </div>
 
-        <div
-          class="group cursor-pointer rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition flex flex-col"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1628268909461-ec1eec52a74e?auto=format&fit=crop&q=60&w=600"
-            class="h-44 md:h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div class="p-4 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="text-lg font-semibold">الخل</h3>
-              <p class="text-sm text-gray-500 mt-2">
-                منتجات طبيعية وبجودة عالية
-              </p>
-            </div>
-            <button
-              class="mt-4 px-4 py-2 bg-amber-400 hover:bg-amber-500 text-white font-medium rounded-full shadow transition"
-            >
-              ➕ أضف إلى السلة
-            </button>
-          </div>
-        </div>
+        <!-- شبكة المنتجات (متجاوبة) -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
 
-        <div
-          class="group cursor-pointer rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition flex flex-col"
-        >
-          <img
-            src="https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?auto=format&fit=crop&q=60&w=600"
-            class="h-44 md:h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div class="p-4 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="text-lg font-semibold">الكاتو</h3>
-              <p class="text-sm text-gray-500 mt-2">
-                منتجات طبيعية وبجودة عالية
-              </p>
+      <!-- Product details (hidden by default) -->
+      <section id="productDetails" class="hidden animate-fade-in max-w-4xl mx-auto bg-white rounded-2xl shadow p-6">
+        <button id="backToStore" class="mb-4 text-sm text-gray-600 hover:underline">← العودة إلى المتجر</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="rounded-md overflow-hidden bg-gray-100">
+            <img id="detailImg" src="" alt="product" class="w-full h-80 object-cover" />
+          </div>
+          <div>
+            <h2 id="detailName" class="text-2xl font-bold"></h2>
+            <p id="detailPrice" class="text-rose-600 text-xl font-semibold mt-2"></p>
+            <p id="detailDesc" class="text-sm text-gray-600 mt-4"></p>
+
+            <div class="mt-6 flex items-center gap-3">
+              <div class="flex items-center gap-2 border rounded-md px-2">
+                <button id="detailDec" class="px-2 py-1 text-lg">−</button>
+                <div id="detailQty" class="px-3 py-1">1</div>
+                <button id="detailInc" class="px-2 py-1 text-lg">+</button>
+              </div>
+
+              <button id="detailAdd" class="px-4 py-2 bg-amber-400 hover:bg-amber-500 text-white rounded-full shadow transition">➕ أضف إلى السلة</button>
             </div>
-            <button
-              class="mt-4 px-4 py-2 bg-amber-400 hover:bg-amber-500 text-white font-medium rounded-full shadow transition"
-            >
-              ➕ أضف إلى السلة
-            </button>
           </div>
         </div>
       </section>
 
-      <!-- 💳 Checkout -->
-      <section
-        id="checkout"
-        class="max-w-2xl mx-auto bg-white rounded-2xl shadow p-6 hidden"
-      >
+      <!-- Cart tab -->
+      <section id="cart" class="hidden animate-fade-in">
+        <div class="flex flex-col lg:flex-row gap-6">
+          <!-- قائمة العناصر -->
+          <div class="flex-1 bg-white rounded-2xl shadow p-4">
+            <h2 class="text-xl font-semibold mb-4">السلة</h2>
+            <div id="cartList" class="space-y-3"></div>
+            <div id="emptyCart" class="text-center text-gray-500 py-8">السلة فارغة — أضف بعض المنتجات ✨</div>
+          </div>
+
+          <!-- ملخص الطلب -->
+          <aside class="w-full lg:w-80 bg-white rounded-2xl shadow p-4">
+            <h3 class="text-lg font-medium mb-2">ملخص الطلب</h3>
+            <div class="flex items-center justify-between mb-2 text-sm text-gray-600">
+              <span>العناصر:</span>
+              <span id="cartCountSummary">0</span>
+            </div>
+            <div class="flex items-center justify-between mt-2 pt-2 border-t">
+              <span class="font-semibold">الإجمالي</span>
+              <span id="cartTotal" class="font-bold text-rose-600">0 ر.س</span>
+            </div>
+            <button id="checkoutBtn" class="mt-4 w-full px-4 py-2 bg-rose-500 text-white rounded-md shadow hover:bg-rose-600 transition">المتابعة للدفع</button>
+            <button id="clearCartBtn" class="mt-3 w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition">تفريغ السلة</button>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Checkout tab -->
+      <section id="checkout" class="hidden animate-fade-in max-w-2xl mx-auto bg-white rounded-2xl shadow p-6">
         <h2 class="text-2xl font-bold mb-4">طرق الدفع</h2>
         <div class="space-y-4">
-          <div
-            class="flex items-center justify-between p-4 border rounded-md hover:bg-gray-50"
-          >
+          <div class="flex items-center justify-between p-4 border rounded-md hover:bg-gray-50">
             <div>
               <div class="font-medium">الدفع عند الاستلام</div>
-              <div class="text-sm text-gray-500">
-                الدفع يتم عند استلام الطلب
-              </div>
+              <div class="text-sm text-gray-500">الدفع يتم عند استلام الطلب</div>
             </div>
             <input type="radio" name="pay" />
           </div>
-          <div
-            class="flex items-center justify-between p-4 border rounded-md hover:bg-gray-50"
-          >
+          <div class="flex items-center justify-between p-4 border rounded-md hover:bg-gray-50">
             <div>
               <div class="font-medium">بطاقة ائتمان</div>
               <div class="text-sm text-gray-500">ادخل معلومات بطاقتك بأمان</div>
@@ -177,80 +143,62 @@
             <input type="radio" name="pay" />
           </div>
           <div class="text-right mt-6">
-            <button
-              class="px-5 py-2 bg-rose-500 text-white rounded-md shadow hover:bg-rose-600 transition"
-            >
-              تأكيد الطلب
-            </button>
+            <button class="px-5 py-2 bg-rose-500 text-white rounded-md shadow hover:bg-rose-600 transition">تأكيد الطلب</button>
           </div>
         </div>
       </section>
 
-      <!-- 👤 Profile -->
-      <section
-        id="profile"
-        class="max-w-xl mx-auto bg-white rounded-2xl shadow p-6 hidden"
-      >
+      <!-- Profile tab -->
+      <section id="profile" class="hidden animate-fade-in max-w-2xl mx-auto bg-white rounded-2xl shadow p-6">
         <div class="flex items-center gap-4">
-          <div
-            class="w-16 h-16 rounded-full bg-amber-200 flex items-center justify-center text-lg font-bold"
-          >
-            U
-          </div>
-          <div>
-            <div class="font-semibold">اسم المستخدم</div>
-            <div class="text-sm text-gray-500">user@example.com</div>
+          <div class="w-16 h-16 rounded-full bg-amber-200 flex items-center justify-center text-lg font-bold">U</div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <div>
+                <div id="profileName" class="font-semibold text-lg">اسم المستخدم</div>
+                <div id="profileEmail" class="text-sm text-gray-500">user@example.com</div>
+              </div>
+              <button id="editProfileBtn" class="px-3 py-2 bg-amber-100 text-sm rounded-md">تعديل</button>
+            </div>
+            <p class="text-sm text-gray-600 mt-4">لوحة التحكم الشخصية لإدارة بياناتك ومتابعة الطلبات.</p>
           </div>
         </div>
-        <p class="text-sm text-gray-600 mt-4">
-          لوحة التحكم الشخصية لإدارة بياناتك ومتابعة الطلبات.
-        </p>
-        <div class="text-right mt-4">
-          <button
-            class="px-4 py-2 bg-rose-500 text-white rounded hover:bg-rose-600 transition"
-          >
-            تعديل
-          </button>
+
+        <hr class="my-6" />
+
+        <!-- Settings -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">الإعدادات</h3>
+          <div class="bg-gray-50 p-4 rounded-md">
+            <div class="text-sm text-gray-700 mb-2">تعديل معلومات الحساب</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <input id="inpName" placeholder="الاسم" class="px-3 py-2 rounded-md border" />
+              <input id="inpEmail" placeholder="البريد الإلكتروني" class="px-3 py-2 rounded-md border" />
+            </div>
+            <div class="mt-3 flex gap-2">
+              <button id="saveProfile" class="px-3 py-2 bg-amber-400 text-white rounded-md">حفظ</button>
+              <button id="cancelProfile" class="px-3 py-2 bg-gray-100 rounded-md">إلغاء</button>
+            </div>
+          </div>
         </div>
       </section>
+
     </main>
 
     <!-- Footer -->
-    <footer
-      id="footer"
-      class="mt-12 py-8 text-center text-sm text-gray-600 hidden"
-    >
+    <footer id="footer" class="mt-12 py-8 text-center text-sm text-gray-600 hidden">
       © 2025 HoneyVinegarCake — جميع الحقوق محفوظة
     </footer>
 
-    <script>
-      // شاشة البداية
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          const splash = document.getElementById("splash");
-          splash.classList.add("opacity-0");
-          setTimeout(() => {
-            splash.classList.add("hidden");
-            document.getElementById("header").classList.remove("hidden");
-            document.getElementById("content").classList.remove("hidden");
-            document.getElementById("footer").classList.remove("hidden");
-            showTab("store");
-          }, 800);
-        }, 2500);
-      });
+    <!-- Toast -->
+    <div id="toast" class="fixed left-1/2 transform -translate-x-1/2 bottom-8 z-50 hidden">
+      <div class="bg-emerald-500 text-white px-4 py-2 rounded-full shadow flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+        <span id="toastMessage" class="text-sm"></span>
+      </div>
+    </div>
 
-      // نظام التبويبات
-      function showTab(tab) {
-        ["store", "checkout", "profile"].forEach((id) => {
-          document.getElementById(id).classList.add("hidden");
-        });
-        document.getElementById(tab).classList.remove("hidden");
-
-        document.querySelectorAll(".tab-btn").forEach((btn) => {
-          btn.classList.remove("bg-white", "shadow");
-        });
-        event.target.classList.add("bg-white", "shadow");
-      }
-    </script>
+    <!-- Script -->
+    <script src="./script.js"></script>
   </body>
 </html>
