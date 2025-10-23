@@ -36,7 +36,7 @@
       desc: "خل عنب بنكهة غنية ومناسبة للطبخ.",
     },
     {
-      id: 3,
+      id: 6,
       name: "خل التمر 700مل",
       price: 5,
       img: "https://plus.unsplash.com/premium_photo-1670426501140-b21450719ef1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8RGF0ZSUyMHZpbmVnYXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
