@@ -6,6 +6,23 @@
     <title>HoneyVinegarCake — متجر</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
+  <style>
+    /* fade-in animation */
+    @keyframes fadeInSmooth {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeInSmooth 0.4s ease-out;
+    }
+  </style>
 
   <body
     class="min-h-screen bg-gradient-to-b from-rose-50 to-amber-50 text-gray-800 antialiased"
