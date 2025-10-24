@@ -400,10 +400,16 @@
     if (confirm("هل تريد تفريغ السلة؟")) clearCart();
   });
 
-  // checkout button navigates to checkout tab
-  document
-    .getElementById("checkoutBtn")
-    .addEventListener("click", () => showSection("checkout"));
+  // checkout button navigates to checkout tab (only if cart not empty)
+  document.getElementById("checkoutBtn").addEventListener("click", () => {
+    if (cart.length === 0) {
+      showToast("السلة فارغة، أضف منتجات أولاً!");
+      return;
+    }
+    showSection("checkout");
+  });
+
+  
 
   // profile save/cancel
   saveProfileBtn.addEventListener("click", () => {
