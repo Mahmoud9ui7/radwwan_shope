@@ -7,48 +7,55 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <style>
-    /* fade-in animation */
-    @keyframes fadeInSmooth {
-      0% {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+   @keyframes bounce-clear {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25px); /* ارتفاع أوضح */
+  }
+}
 
-    .animate-fade-in {
-      animation: fadeInSmooth 0.4s ease-out;
-    }
+.animate-bounce-clear {
+  animation: bounce-clear 1.6s ease-in-out infinite;
+}
+
   </style>
 
   <body
     class="min-h-screen bg-gradient-to-b from-rose-50 to-amber-50 text-gray-800 antialiased"
   >
-    <!-- Splash -->
-    <div
-      id="splash"
-      class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-amber-100 via-rose-100 to-white transition-opacity duration-700"
-    >
-      <div class="relative">
-        <div
-          class="absolute -inset-2 rounded-full border-4 border-amber-300/40 animate-spin"
-        ></div>
-        <div
-          class="w-28 h-28 rounded-full bg-white shadow-2xl flex items-center justify-center text-3xl font-extrabold text-rose-600"
-        >
-          <span class="text-amber-500">🍯</span> HVC
-        </div>
-      </div>
-      <div class="mt-6 text-center">
-        <p class="text-lg font-semibold text-gray-700">
-          مرحباً بك في متجر الرضوان
-        </p>
-        <p class="text-sm text-gray-500 mt-2">جارٍ تحميل المتجر...</p>
-      </div>
+  <!-- Splash Screen -->
+<section id="splash" class="fixed inset-0 bg-gradient-to-b from-amber-400 via-yellow-300 to-yellow-100 flex flex-col items-center justify-center z-50 transition-opacity duration-700">
+  <div class="flex flex-col items-center animate-fade-in">
+
+    <!-- شعار -->
+    <div class="relative">
+    <div class="w-24 h-24 rounded-full bg-white shadow-2xl flex items-center justify-center animate-bounce-clear">
+  <img src="https://cdn-icons-png.flaticon.com/512/2907/2907185.png" alt="Logo" class="w-14 h-14" />
+</div>
+
     </div>
+
+    <!-- عنوان -->
+    <h1 class="text-3xl font-extrabold text-white mt-6 drop-shadow-lg tracking-wide">
+      متجر العسل الطبيعي 🍯
+    </h1>
+    <p class="text-white/90 mt-1 font-medium text-sm tracking-widest">
+      جودة • طبيعة • صحة
+    </p>
+
+    <!-- شريط التحميل -->
+    <div class="w-56 h-3 bg-white/40 rounded-full mt-8 overflow-hidden shadow-inner">
+      <div id="progressBar" class="h-full bg-white rounded-full w-0 transition-all duration-300"></div>
+    </div>
+
+    <!-- نسبة التحميل -->
+    <p id="progressText" class="text-white mt-2 font-semibold text-sm tracking-wider">0%</p>
+  </div>
+</section>
+
+
 
     <!-- Header -->
     <header

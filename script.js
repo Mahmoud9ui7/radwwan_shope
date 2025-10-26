@@ -525,27 +525,40 @@
     }
   }
 
-  function init() {
-    // hide splash then show UI
-    setTimeout(() => {
-      const splash = document.getElementById("splash");
-      if (splash) {
+ function init() {
+  const splash = document.getElementById("splash");
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 10) + 5; // تقدم عشوائي طبيعي
+    if (progress > 100) progress = 100;
+
+    progressBar.style.width = progress + "%";
+    progressText.textContent = progress + "%";
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
         splash.classList.add("opacity-0");
         setTimeout(() => {
           splash.classList.add("hidden");
           document.getElementById("header").classList.remove("hidden");
           document.getElementById("app").classList.remove("hidden");
           document.getElementById("footer").classList.remove("hidden");
-          // render UI
+
           renderProducts();
           renderCart();
           initProfile();
           renderOrders();
           showSection("store");
-        }, 380);
-      }
-    }, 1000);
-  }
+        }, 500);
+      }, 500);
+    }
+  }, 100);
+}
+
 
   // start
   init();
