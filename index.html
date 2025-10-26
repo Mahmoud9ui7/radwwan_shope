@@ -239,7 +239,7 @@
                 الدفع يتم عند استلام الطلب
               </div>
             </div>
-            <input type="radio" name="pay" />
+            <input type="radio" name="payment" />
           </div>
           <div
             class="flex items-center justify-between p-4 border rounded-md hover:bg-gray-50"
@@ -248,10 +248,11 @@
               <div class="font-medium">بطاقة ائتمان</div>
               <div class="text-sm text-gray-500">ادخل معلومات بطاقتك بأمان</div>
             </div>
-            <input type="radio" name="pay" />
+            <input type="radio" name="payment" />
           </div>
           <div class="text-right mt-6">
             <button
+              id="payBtn"
               class="px-5 py-2 bg-rose-500 text-white rounded-md shadow hover:bg-rose-600 transition"
             >
               تأكيد الطلب
@@ -295,6 +296,11 @@
         </div>
 
         <hr class="my-6" />
+
+        <h3 class="text-lg font-bold mb-2">سجل الطلبات</h3>
+        <div id="ordersList" class="space-y-3 text-sm text-gray-700">
+          <p id="noOrders" class="text-gray-500">لا توجد طلبات حالياً</p>
+        </div>
 
         <!-- Settings -->
         <div class="space-y-4">

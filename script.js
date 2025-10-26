@@ -84,6 +84,8 @@
   const inpEmail = document.getElementById("inpEmail");
   const saveProfileBtn = document.getElementById("saveProfile");
   const cancelProfileBtn = document.getElementById("cancelProfile");
+  const ordersList = document.getElementById("ordersList");
+  const noOrders = document.getElementById("noOrders");
 
   /*********************
    * localStorage helpers
@@ -118,6 +120,51 @@
     } catch (e) {
       return null;
     }
+  }
+  function saveOrders(orders) {
+    try {
+      localStorage.setItem("hvc_orders", JSON.stringify(orders));
+    } catch (e) {
+      console.warn("لا يمكن حفظ الطلبات:", e);
+    }
+  }
+
+  function loadOrders() {
+    try {
+      const raw = localStorage.getItem("hvc_orders");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  }
+  function renderOrders() {
+    const orders = loadOrders();
+    ordersList.innerHTML = "";
+
+    if (orders.length === 0) {
+      noOrders.classList.remove("hidden");
+      return;
+    }
+
+    noOrders.classList.add("hidden");
+
+    orders.forEach((o) => {
+      const div = document.createElement("div");
+      div.className = "border rounded-lg p-3 bg-gray-50";
+      div.innerHTML = `
+      <div class="flex justify-between items-center mb-2">
+        <span class="font-medium">طلب بتاريخ: ${o.date}</span>
+        <span class="text-amber-600">${o.total}$</span>
+      </div>
+      <div class="text-gray-600">طريقة الدفع: ${o.method}</div>
+      <ul class="list-disc ml-6 mt-2">
+        ${o.items
+          .map((i) => `<li>${i.name} × ${i.qty} (${i.price}$)</li>`)
+          .join("")}
+      </ul>
+    `;
+      ordersList.appendChild(div);
+    });
   }
 
   /*********************
@@ -409,7 +456,41 @@
     showSection("checkout");
   });
 
-  
+  // زر إتمام الدفع
+  const payBtn = document.getElementById("payBtn");
+  const paymentMethods = document.querySelectorAll("input[name='payment']");
+
+  payBtn.addEventListener("click", () => {
+    const selected = Array.from(paymentMethods).find((m) => m.checked);
+    if (!selected) {
+      showToast("الرجاء اختيار طريقة دفع");
+      return;
+    }
+
+    // إنشاء سجل الطلب
+    const order = {
+      date: new Date().toLocaleString(),
+      method: selected.value === "cash" ? "الدفع عند الاستلام" : "بطاقة بنكية",
+      total: cart.reduce((s, i) => {
+        const p = products.find((x) => x.id === i.id);
+        return s + (p ? p.price * i.qty : 0);
+      }, 0),
+      items: cart.map((i) => {
+        const p = products.find((x) => x.id === i.id);
+        return { name: p.name, qty: i.qty, price: p.price };
+      }),
+    };
+
+    // حفظ الطلبات السابقة + الجديد
+    const allOrders = loadOrders();
+    allOrders.push(order);
+    saveOrders(allOrders);
+
+    clearCart();
+    showToast("تم الطلب بنجاح ✅");
+    renderOrders(); // لتحديث القائمة فورًا
+    showSection("profile"); // الانتقال إلى صفحة البروفايل بعد الدفع
+  });
 
   // profile save/cancel
   saveProfileBtn.addEventListener("click", () => {
@@ -459,6 +540,7 @@
           renderProducts();
           renderCart();
           initProfile();
+          renderOrders();
           showSection("store");
         }, 380);
       }
